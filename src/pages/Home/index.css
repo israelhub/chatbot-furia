@@ -1,0 +1,53 @@
+/* Novo container principal que envolve todo o conteúdo */
+.home-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh; /* Altura fixa para ocupar a viewport completa */
+  width: 100%;
+  overflow: hidden; /* Impede rolagem da página principal */
+}
+
+/* Chat container agora tem altura fixa */
+.chat-container {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  max-width: 800px;
+  margin: 0 auto;
+  background-color: #ffffff;
+  height: calc(100% - 80px); /* Altura ajustada considerando o header real */
+  position: relative; /* Para posicionamento do input no fundo */
+}
+
+.chat-content {
+  flex: 1;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  position: relative;
+  height: calc(100% - 60px); /* Espaço para o input na parte inferior */
+  justify-content: center;
+  align-items: center;
+}
+
+@media (max-width: 768px) {
+  .chat-container {
+    width: 100%;
+    padding: 0 1rem; /* Adiciona espaçamento lateral */
+    box-sizing: border-box;
+    height: calc(100% - 70px); /* Altura ajustada para telas menores */
+  }
+  
+  .chat-content {
+    width: 100%;
+    height: calc(100% - 60px); /* Mantém espaço para o input */
+  }
+}
+
+/* Para telas ainda menores, aumenta mais o espaçamento */
+@media (max-width: 480px) {
+  .chat-container {
+    padding: 0 1.5rem; /* Espaçamento maior em telas muito estreitas */
+  }
+}

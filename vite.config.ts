@@ -20,4 +20,18 @@ export default defineConfig({
       'localhost'
     ],
   },
+  build: {
+    // Otimizações para o ambiente de produção
+    outDir: 'dist',
+    assetsDir: 'assets',
+    emptyOutDir: true,
+    sourcemap: false,
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          vendor: ['react', 'react-dom', 'react-router-dom'],
+        },
+      },
+    },
+  },
 })

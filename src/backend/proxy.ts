@@ -7,12 +7,9 @@ import axios from 'axios';
 import cors from 'cors';
 import puppeteer from 'puppeteer';
 import { LiquipediaResponse } from '../types/index.js';
+import { getPuppeteerOptions } from './puppeteer-config.js';
 
-const app = express();
-const PORT = process.env.PORT || 3001;
-
-// Habilitar CORS para permitir requisições do frontend
-app.use(cors());
+const router = express.Router();
 
 // Função auxiliar para lidar com rotas assíncronas
 const asyncHandler = (fn: (req: Request, res: Response, next: NextFunction) => Promise<unknown>) => {
@@ -22,7 +19,7 @@ const asyncHandler = (fn: (req: Request, res: Response, next: NextFunction) => P
 };
 
 // Rota do proxy para o Liquipedia
-app.get('/api/liquipedia', asyncHandler(async (req: Request, res: Response) => {
+router.get('/liquipedia', asyncHandler(async (req: Request, res: Response) => {
   const page = req.query.page as string;
   
   if (!page) {
@@ -52,7 +49,7 @@ app.get('/api/liquipedia', asyncHandler(async (req: Request, res: Response) => {
 }));
 
 // Rota do proxy para o Draft5.gg
-app.get('/api/draft5', asyncHandler(async (req: Request, res: Response) => {
+router.get('/draft5', asyncHandler(async (req: Request, res: Response) => {
   const url = req.query.url as string;
   
   if (!url) {
@@ -74,7 +71,7 @@ app.get('/api/draft5', asyncHandler(async (req: Request, res: Response) => {
 }));
 
 // Rota do proxy para o Draft5.gg com Puppeteer (para conteúdo JavaScript dinâmico)
-app.get('/api/draft5/puppeteer', asyncHandler(async (req: Request, res: Response) => {
+router.get('/draft5/puppeteer', asyncHandler(async (req: Request, res: Response) => {
   const url = req.query.url as string;
   
   if (!url) {
@@ -85,11 +82,8 @@ app.get('/api/draft5/puppeteer', asyncHandler(async (req: Request, res: Response
   
   let browser = null;
   try {
-    // Inicia o navegador
-    browser = await puppeteer.launch({
-      headless: true,
-      args: ['--no-sandbox', '--disable-setuid-sandbox', '--disable-dev-shm-usage']
-    });
+    // Inicia o navegador com as configurações otimizadas para produção
+    browser = await puppeteer.launch(getPuppeteerOptions());
     
     console.log(`✅ Navegador Puppeteer iniciado no servidor`);
     
@@ -143,13 +137,25 @@ app.get('/api/draft5/puppeteer', asyncHandler(async (req: Request, res: Response
 }));
 
 // Endpoint de status para verificação de saúde
-app.get('/health', (_, res) => {
+router.get('/health', (_, res) => {
   res.json({ status: 'ok', message: 'Servidor proxy funcionando corretamente' });
 });
 
-// Iniciar o servidor
-app.listen(PORT, () => {
-  console.log(`Servidor proxy rodando na porta ${PORT}`);
-});
+// Se estiver sendo executado diretamente (não importado)
+if (import.meta.url === (await import('node:url')).pathToFileURL(process.argv[1]).href) {
+  const app = express();
+  const PORT = process.env.PORT || 3001;
+  
+  // Habilitar CORS para permitir requisições do frontend
+  app.use(cors());
+  
+  // Usar as rotas do proxy
+  app.use('/api', router);
+  
+  // Iniciar o servidor
+  app.listen(PORT, () => {
+    console.log(`Servidor proxy rodando na porta ${PORT}`);
+  });
+}
 
-export default app;
+export default router;

@@ -1,0 +1,20 @@
+services:
+  - type: web
+    name: furia-bot
+    env: node
+    region: oregon
+    plan: free
+    buildCommand: npm install && npm run build
+    startCommand: npm run start:prod
+    healthCheckPath: /health
+    envVars:
+      - key: NODE_ENV
+        value: production
+    buildFilter:
+      paths:
+        - src/**
+        - package.json
+        - server.js
+        - vite.config.ts
+        - tsconfig.json
+    autoDeploy: true

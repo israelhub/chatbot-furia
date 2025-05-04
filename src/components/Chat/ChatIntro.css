@@ -1,0 +1,113 @@
+.chat-intro {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 3.5rem 0;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.tigre-logo {
+  width: 80px;
+  height: 80px;
+  margin-bottom: 1.5rem;
+}
+
+.intro-text {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.intro-text h2 {
+  color: #4D4D4D;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.suggestion-buttons {
+  display: flex;
+  flex-direction: row; 
+  width: 100%; 
+  gap: 0.8rem; 
+  justify-content: center;
+  flex-wrap: wrap; 
+}
+
+.suggestion-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.35rem 0.7rem; 
+  background-color: #f8f8f8;
+  border: 1px solid #e0e0e0;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: background-color 0.2s, border-color 0.2s;
+  font-size: 0.75rem; 
+  font-weight: 500;
+  color: #333;
+  text-align: left;
+  width: auto;
+  max-width: 210px; 
+}
+
+.suggestion-btn span {
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  hyphens: auto;
+  min-width: 0;
+  flex: 1;
+  display: flex;
+  align-items: center; 
+  justify-content: center; 
+  text-align: center;
+}
+
+.suggestion-btn:hover {
+  background-color: #e0e0e0;
+  border-color: #cccccc;
+}
+
+.suggestion-icon {
+  width: 18px; 
+  height: 18px;
+  flex-shrink: 0; 
+}
+
+@media (max-width: 768px) {
+  .chat-intro {
+    padding: 1rem;
+  }
+  
+  .tigre-logo {
+    width: 80px;
+    height: 80px;
+  }
+  
+  .intro-text h2 {
+    font-size: 1.1rem;
+  }
+  
+  .suggestion-buttons {
+    flex-direction: row; 
+    width: 90%;
+    gap: 0.6rem;
+  }
+  
+  .suggestion-btn {
+    max-width: 170px;
+  }
+}
+
+@media (max-width: 480px) {
+  .suggestion-buttons {
+    flex-direction: column;
+    width: 80%;
+  }
+  
+  .suggestion-btn {
+    width: 100%;
+    max-width: none;
+  }
+}

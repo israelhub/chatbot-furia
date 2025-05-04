@@ -1,0 +1,121 @@
+.input-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 0 1rem 0.2rem;
+}
+
+.disclaimer-text {
+  font-size: 0.7rem;
+  color: #777;
+  text-align: center;
+  margin-bottom: 8px;
+  margin-top: 8px;
+}
+
+.input-area {
+  display: flex;
+  gap: 8px;
+  padding: 0.6rem;
+  background-color: #f5f5f5;
+  border-radius: 16px;
+  border: 1px solid #e0e0e0;
+  width: 100%;
+  position: relative;
+}
+
+.input-area textarea {
+  flex: 1;
+  padding: 0.5rem 0.75rem;
+  border: none;
+  border-radius: 20px;
+  background-color: transparent;
+  color: #333;
+  resize: none;
+  font-family: inherit;
+  font-size: 0.95rem;
+  outline: none;
+}
+
+/* Estilizando a barra de rolagem do textarea */
+.input-area textarea::-webkit-scrollbar {
+  width: 8px;
+}
+
+.input-area textarea::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.input-area textarea::-webkit-scrollbar-thumb {
+  background-color: #ccc;
+  border-radius: 4px;
+}
+
+.input-area textarea::-webkit-scrollbar-thumb:hover {
+  background-color: #aaa;
+}
+
+/* Para Firefox */
+.input-area textarea {
+  scrollbar-width: thin;
+  scrollbar-color: #ccc transparent;
+}
+
+.input-area textarea::placeholder {
+  color: #999;
+}
+
+.input-area textarea:disabled {
+  background-color: #f8f8f8;
+  cursor: not-allowed;
+}
+
+.input-area button {
+  width: 36px;
+  height: 36px;
+  background-color: #ddd;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+}
+
+.input-area button:hover:not(:disabled) {
+  transform: scale(1.05);
+}
+
+.input-area button:disabled {
+  background-color: #ddd;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.send-icon {
+  width: 18px;
+  height: 18px;
+}
+
+@media (max-width: 768px) {
+  .input-container {
+    padding: 0 0.5rem 0.5rem;
+  }
+  
+  .input-area {
+    padding: 0.5rem;
+  }
+  
+  .input-area textarea {
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .input-container {
+    padding: 0 0.25rem 0.5rem; /* Reduzindo ainda mais o padding lateral em telas muito pequenas */
+  }
+}

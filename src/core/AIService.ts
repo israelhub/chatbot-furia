@@ -505,7 +505,8 @@ ${nextMatches.status === 'fulfilled' ? nextMatches.value : 'Próximas partidas i
           return `Último jogo da FURIA:\n\n${lastMatch}\n\nSempre apoiando nosso time! 🐾 🔥`;
         }
       } catch (error) {
-        console.error('Erro ao gerar resposta de fallback com DataProvider:', error);
+        console.error('Erro ao gerar resposta de fallback com DataProvider:', 
+          error instanceof Error ? error.message : 'Erro desconhecido');
       }
     }
     

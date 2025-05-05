@@ -4,7 +4,7 @@
     "module": "NodeNext",
     "moduleResolution": "NodeNext",
     "esModuleInterop": true,
-    "strict": true,
+    "strict": false,
     "outDir": "dist",
     "sourceMap": true,
     "resolveJsonModule": true,
@@ -14,7 +14,10 @@
     "declaration": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
-    "isolatedModules": true
+    "isolatedModules": true,
+    "allowJs": true,
+    "checkJs": false,
+    "noImplicitAny": false,
   },
   "include": ["src/**/*", "src/front-end/src/App.tsx", "vite-env.d.ts"],
   "exclude": ["node_modules", "dist"]

@@ -12,7 +12,14 @@
     "skipLibCheck": true,
     "allowJs": true,
     "checkJs": false,
-    "noImplicitAny": false
+    "noImplicitAny": false,
+    "forceConsistentCasingInFileNames": true
+  },
+  "ts-node": {
+    "transpileOnly": true,
+    "compilerOptions": {
+      "module": "NodeNext"
+    }
   },
   "include": ["src/backend/**/*", "src/types/**/*", "src/core/**/*", "src/utils/**/*"],
   "exclude": ["node_modules", "dist"]

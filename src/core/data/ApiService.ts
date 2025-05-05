@@ -214,26 +214,10 @@ export class ApiService {
       
       // Usa o proxy com Puppeteer para obter o HTML com JavaScript renderizado
       console.log(`🔄 Obtendo próximas partidas com proxy Puppeteer para garantir carregamento dinâmico`);
+      const html = await this.fetchWebPageWithPuppeteerProxy(url);
       
-      try {
-        const html = await this.fetchWebPageWithPuppeteerProxy(url);
-        // Processa o HTML para extrair o conteúdo relevante
-        return await this.parseNextMatches(html);
-      } catch (puppeteerError) {
-        console.error("Erro ao usar Puppeteer, usando dados simulados:", puppeteerError);
-        
-        // Verifica se estamos no ambiente de produção (Render)
-        const isProduction = typeof window !== 'undefined' && window.location.hostname !== 'localhost';
-        
-        if (isProduction) {
-          console.log("📄 Usando dados simulados de próximas partidas para ambiente de produção");
-          // Dados simulados para próximas partidas
-          return "Não foi possível obter os dados.";
-        }
-        
-        // Se não estiver em produção, propaga o erro
-        throw puppeteerError;
-      }
+      // Processa o HTML para extrair o conteúdo relevante
+      return await this.parseNextMatches(html);
     } catch (error) {
       console.error("Erro ao buscar próximas partidas:", error);
       throw error;

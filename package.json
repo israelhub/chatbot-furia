@@ -5,7 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc --skipLibCheck && vite build",
+    "build": "npm run build:backend && tsc --skipLibCheck && vite build",
+    "build:backend": "tsc -p tsconfig.backend.json",
     "lint": "eslint .",
     "preview": "vite preview",
     "proxy": "npx tsx src/backend/proxy.ts",

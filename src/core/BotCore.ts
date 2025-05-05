@@ -2,7 +2,7 @@
  * BotCore: Classe principal para processamento de perguntas
  * Implementa padrões de design como Injeção de Dependência, Singleton e princípios SOLID
  */
-import { CommandsService } from './commands/index.ts';
+import { CommandsService } from './commands/index.js';
 import { BotData, Message, IDataProvider, IBotCore, DataFunctions } from '../types/index.js';
 import { quizManager } from '../features/QuizManager.js';
 import { AIService } from './AIService.js';

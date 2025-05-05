@@ -1,5 +1,5 @@
 import * as cheerio from "cheerio";
-import { DataType, Match } from "../types/index.ts";
+import { DataType, Match } from "../types/index.js";
 
 /**
  * Extrai o texto da primeira tabela que corresponde ao seletor e formata como uma tabela de texto

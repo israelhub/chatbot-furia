@@ -2,7 +2,7 @@
 /**
  * Definição dos comandos disponíveis no bot
  */
-import { Command } from '../../types/index.ts';
+import { Command } from '../../types/index.js';
 
 // Lista de comandos disponíveis
 export const BOT_COMMANDS: Command[] = [

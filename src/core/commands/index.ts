@@ -2,5 +2,5 @@
 /**
  * Exportações do módulo de comandos do bot
  */
-export { BOT_COMMANDS } from './Commands.ts';
-export { CommandsService } from './CommandsService.ts';
+export { BOT_COMMANDS } from './Commands.js';
+export { CommandsService } from './CommandsService.js';

@@ -2,8 +2,8 @@
 /**
  * Serviço para gerenciamento de comandos do bot
  */
-import { Command } from '../../types/index.ts';
-import { BOT_COMMANDS } from './Commands.ts';
+import { Command } from '../../types/index.js';
+import { BOT_COMMANDS } from './Commands.js';
 
 export class CommandsService {
   private commands: Command[];

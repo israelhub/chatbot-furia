@@ -4,8 +4,8 @@
  */
 import axios from "axios";
 import * as cheerio from "cheerio";
-import { CONFIG } from "../../config/config.ts";
-import { parseFirstTable } from "../../utils/utils.ts";
+import { CONFIG } from "../../config/config.js";
+import { parseFirstTable } from "../../utils/utils.js";
 
 /**
  * Classe responsável por fazer chamadas à API e processar os dados recebidos

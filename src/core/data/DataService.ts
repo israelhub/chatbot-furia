@@ -2,10 +2,10 @@
  * Serviço para obtenção e gerenciamento de dados do FuriaBot
  * Implementa padrão de design Factory para fontes de dados
  */
-import { CacheService } from "../CacheService.ts";
-import { formatMatchResults, formatPlayerInfo, formatNextMatches, getReadableDataTypeName } from "../../utils/utils.ts";
-import { IDataProvider, DataType } from "../../types/index.ts";
-import { apiService } from "./ApiService.ts";
+import { CacheService } from "../CacheService.js";
+import { formatMatchResults, formatPlayerInfo, formatNextMatches, getReadableDataTypeName } from "../../utils/utils.js";
+import { IDataProvider, DataType } from "../../types/index.js";
+import { apiService } from "./ApiService.js";
 
 // ======================================================================
 // DADOS ESTÁTICOS

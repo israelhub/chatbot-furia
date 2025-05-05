@@ -7,7 +7,7 @@
 import { CacheService } from './CacheService.js';
 import { aiService } from './AIService.js';
 import { botCore } from './BotCore.js';
-import { DataService } from './data/DataService.ts';
+import { DataService } from './data/DataService.js';
 import { CONFIG } from '../config/config.js';
 import { AIProvider, AIServiceConfig } from '../types/index.js';
 

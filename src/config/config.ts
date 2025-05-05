@@ -3,6 +3,17 @@
  */
 import { Config, AIProvider } from '../types/index.js';
 
+// Determinar a URL base para APIs com base no ambiente
+const getBaseApiUrl = () => {
+  // Se estiver em produção (Render, Vercel, etc)
+  if (typeof window !== 'undefined' && window.location.hostname !== 'localhost') {
+    // Usa o mesmo host/porta onde a aplicação está rodando
+    return window.location.origin + '/api';
+  }
+  // Em desenvolvimento local
+  return 'http://localhost:3001/api';
+};
+
 export const CONFIG: Config = {
   // Configuração do cache
   CACHE: {
@@ -13,14 +24,14 @@ export const CONFIG: Config = {
   LIQUIPEDIA: {
     API_URL: "https://liquipedia.net/counterstrike/api.php",
     USER_AGENT: "FuriaFanBot/1.0",
-    PROXY_URL: "http://localhost:3001/api/liquipedia",
+    PROXY_URL: `${getBaseApiUrl()}/liquipedia`,
     USE_PROXY: true, // Ativado para buscar dados reais
     USE_MOCK_DATA: false // Nunca usar dados mockados
   },
 
   // Configuração do Draft5.gg
   DRAFT5: {
-    PROXY_URL: "http://localhost:3001/api/draft5",
+    PROXY_URL: `${getBaseApiUrl()}/draft5`,
     USE_PROXY: true, // Ativado para buscar dados reais
   },
   

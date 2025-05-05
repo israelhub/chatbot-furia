@@ -44,18 +44,49 @@ if (fs.existsSync(srcPath)) {
 }
 
 // Importar a configuração do Puppeteer se possível
-let getPuppeteerOptions = () => ({
-  args: ['--no-sandbox', '--disable-setuid-sandbox'],
-  headless: 'new'
-});
+let getPuppeteerOptions = () => {
+  // Configurações específicas para o Render
+  const isProduction = process.env.NODE_ENV === 'production' || process.env.RENDER === 'true';
+  
+  if (isProduction) {
+    console.log('Configurando Puppeteer para ambiente de produção (Render)');
+    return {
+      args: [
+        '--no-sandbox',
+        '--disable-setuid-sandbox',
+        '--disable-dev-shm-usage',
+        '--disable-accelerated-2d-canvas',
+        '--no-first-run',
+        '--no-zygote',
+        '--single-process',
+        '--disable-gpu'
+      ],
+      headless: 'new',
+      executablePath: process.env.PUPPETEER_EXECUTABLE_PATH || undefined
+    };
+  }
+  
+  // Configuração padrão para desenvolvimento
+  return {
+    args: ['--no-sandbox', '--disable-setuid-sandbox'],
+    headless: 'new'
+  };
+};
 
 try {
   const puppeteerConfigPath = path.join(__dirname, 'src', 'backend', 'puppeteer-config.js');
   if (fs.existsSync(puppeteerConfigPath)) {
     console.log('Carregando configuração do Puppeteer de:', puppeteerConfigPath);
     import(puppeteerConfigPath).then(module => {
-      getPuppeteerOptions = module.getPuppeteerOptions;
-      console.log('Configuração do Puppeteer carregada com sucesso');
+      // Mantemos nossa função personalizada, mas usamos a configuração local
+      // se estivermos em ambiente de desenvolvimento
+      const originalGetOptions = module.getPuppeteerOptions;
+      const isProduction = process.env.NODE_ENV === 'production' || process.env.RENDER === 'true';
+      
+      if (!isProduction && originalGetOptions) {
+        getPuppeteerOptions = originalGetOptions;
+        console.log('Configuração do Puppeteer local carregada com sucesso');
+      }
     }).catch(err => {
       console.error('Erro ao importar configuração do Puppeteer:', err);
     });

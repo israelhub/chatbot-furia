@@ -256,17 +256,50 @@ export function getReadableDataTypeName(type: DataType): string {
 }
 
 /**
- * Extrai e formata informações de próximas partidas a partir do HTML
- * Segue o princípio de responsabilidade única dividindo a extração e formatação em funções separadas
+ * Extrai e formata informações de próximas partidas a partir do HTML ou dados JSON simulados
  */
-export function formatNextMatches(nextMatchesHtml: string): string {
+interface SimulatedMatch {
+  date: string;
+  time: string;
+  opponent: string;
+  tournament: string;
+}
+
+interface SimulatedData {
+  simulated: boolean;
+  matches: SimulatedMatch[];
+}
+
+export function formatNextMatches(data: string): string {
   try {
+    // Verifica se os dados são um JSON válido (dados simulados)
+    try {
+      const jsonData = JSON.parse(data) as SimulatedData;
+      
+      // Se for nosso formato simulado
+      if (jsonData.simulated && jsonData.matches) {
+        console.log("📄 Processando dados simulados de próximas partidas");
+        
+        let result = "📆 Próximas Partidas\n\n";
+        
+        // Formata cada partida simulada
+        jsonData.matches.forEach((match: SimulatedMatch) => {
+          result += `• ${match.date} ${match.time} - FURIA vs ${match.opponent} - ${match.tournament}\n`;
+        });
+        
+        return result.trim();
+      }
+    } catch {
+      // Não é JSON, continua com a extração normal de HTML
+      console.log("📄 Dados não são JSON, tentando processar como HTML");
+    }
+    
     // Log do HTML bruto recebido
     console.log(`🔍 DADOS BRUTOS HTML PARA FORMATAÇÃO (nextMatches):`, 
-      nextMatchesHtml.substring(0, 200) + "...");
+      data.substring(0, 200) + "...");
     
     // Extrai os dados do HTML
-    const matches = extractNextMatchesFromHtml(nextMatchesHtml);
+    const matches = extractNextMatchesFromHtml(data);
     
     // Formata os dados extraídos
     return formatNextMatchesData(matches);
